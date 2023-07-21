@@ -44,14 +44,22 @@ export default defineConfig({
         ]
       }),
       AutoImport({
-        imports: ['vue'],
+        include: [
+          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          /\.vue$/,
+          /\.vue\?vue/, // .vue
+          /\.md$/ // .md
+        ],
+        imports: ['vue', 'vue-router', 'vue-i18n'],
         dts: resolve('src/renderer/src/auto-imports.d.ts'),
-        resolvers: [ElementPlusResolver()]
+        resolvers: [ElementPlusResolver(), IconsResolver()]
       }),
       Components({
         dirs: [resolve(__dirname, 'src/renderer/src/components')],
+        dts: resolve('src/renderer/src/components.d.ts'),
         resolvers: [
           IconsResolver({
+            enabledCollections: ['ep'],
             componentPrefix: 'icon',
             customCollections: ['custom']
           }),

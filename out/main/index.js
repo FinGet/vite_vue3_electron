@@ -12,7 +12,8 @@ function createWindow() {
     ...process.platform === "linux" ? { icon } : {},
     webPreferences: {
       preload: path.join(__dirname, "../preload/index.js"),
-      sandbox: false
+      sandbox: false,
+      nodeIntegration: true
     }
   });
   mainWindow.on("ready-to-show", () => {
@@ -43,4 +44,8 @@ electron.app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     electron.app.quit();
   }
+});
+electron.ipcMain.on("ping", (event, arg) => {
+  console.log(arg);
+  event.reply("pong", "pong");
 });

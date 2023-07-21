@@ -12,6 +12,10 @@ const useCounter = defineStore('count', {
     decrement() {
       this.count--;
     }
+  },
+  persist: {
+    key: '__prompt_count',
+    storage: localStorage
   }
 });
 
